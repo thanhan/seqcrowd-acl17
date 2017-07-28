@@ -1,0 +1,18 @@
+Source code for our paper:
+
+Aggregating and Predicting Sequence Labels from Crowd Annotations
+An Thanh Nguyen, Byron C. Wallace, Junyi Jessy Li, Ani Nenkova and Matthew Lease
+Association for Computational Linguistics (ACL)
+
+
+The crowd NER dataset is from Rodrigues et al (2014):
+http://www.fprodrigues.com/software/crf-ma-sequence-labeling-with-multiple-annotators/
+
+For LSTM-Crowd, our implementation extends Lample et al (2016): https://github.com/glample/tagger
+
+
+References:
+
+Rodrigues, Filipe, Francisco Pereira, and Bernardete Ribeiro. "Sequence labeling with multiple annotators." Machine Learning 95.2 (2014): 165-181.
+
+Lample, Guillaume, et al. "Neural architectures for named entity recognition." arXiv preprint arXiv:1603.01360 (2016).

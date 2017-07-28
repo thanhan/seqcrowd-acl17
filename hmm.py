@@ -78,7 +78,7 @@ class HMM:
                 res[l - 1] = i
 
         for t in range(l - 2, -1, -1):
-            res[t] = b[t + 1, res[t + 1]]
+            res[t] = b[int(t + 1), int(res[t + 1])]
 
         # print c
         # print b
@@ -1330,11 +1330,11 @@ def main_em():
     hc.init(init_type = 'dw', wm_rep='cv2')
     gold = util.get_all_lab(all_sen)
 
-    for i in range(200):
-        hc.em(5)
-        hc.mls()
-        print (i+1)*5, 
-        eval_seq_train(gold, hc.res, labels)
+    
+    hc.em(5)
+    hc.mls()
+    
+    print eval_seq_train(gold, hc.res, labels)
 
 if __name__ == "__main__":
     main_em()
