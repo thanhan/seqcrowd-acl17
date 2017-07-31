@@ -10,6 +10,7 @@ http://www.fprodrigues.com/software/crf-ma-sequence-labeling-with-multiple-annot
 
 For LSTM-Crowd, our implementation extends Lample et al (2016): https://github.com/glample/tagger
 
+Data for the Biomedical IE task: https://github.com/yinfeiy/PICO-data
 
 References:
 
