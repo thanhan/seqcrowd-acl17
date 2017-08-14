@@ -239,6 +239,18 @@ def get_word_list(sentence, features):
     return res
 
 
+def get_word_list2(sentence, inv_f):
+    res = []
+    for i in sentence:
+        if len(i.features) > 0:
+            if i.features[0] in inv_f:
+                res.append(inv_f[i.features[0]])
+            else:
+                res.append("*EMPTY*")
+        else:
+            res.append("*NOFEA*")
+    return res
+
 def get_lab(sentence):
     """
     get the seq of labels
@@ -263,6 +275,33 @@ def get_lab_name(sen, labels):
         else:
             res = res + " *NEWLABEL"
     return res
+    
+def get_lab_name_list(sen, labels):
+    """
+    sen = list of numerical labels
+    """
+    inv_l = {v: k for k, v in labels.items()}
+    res = []
+    for i in sen:
+        if i in inv_l:
+            res.append(inv_l[i])
+        else:
+            res.append("*NEWLABEL")
+    return res
+
+
+def get_lab_name_list2(sen, inv_l):
+    """
+    sen = list of numerical labels
+    """
+    res = []
+    for i in sen:
+        if i in inv_l:
+            res.append(inv_l[i])
+        else:
+            res.append("*NEWLABEL")
+    return res
+
 
 
 def get_all_lab(sentences):

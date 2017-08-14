@@ -5,13 +5,28 @@ An Thanh Nguyen, Byron C. Wallace, Junyi Jessy Li, Ani Nenkova and Matthew Lease
 Association for Computational Linguistics (ACL)
 
 
-The crowd NER dataset is from Rodrigues et al (2014):
+The crowd NER dataset is from Rodrigues et al. (2014):
 http://www.fprodrigues.com/software/crf-ma-sequence-labeling-with-multiple-annotators/
 
-For LSTM-Crowd, our implementation extends Lample et al (2016): https://github.com/glample/tagger
+For LSTM-Crowd, our implementation extends Lample et al. (2016): https://github.com/glample/tagger
 
 Data for the Biomedical IE task: https://github.com/yinfeiy/PICO-data
 
+-------------------------------------------------------------------------
+
+Command to run HMM-Crowd: python hmm.py <input directory> <output file> <optional: number of EM iterations>
+
+To run the experiment on NER Task 1, extract the Rodrigues et al. data in task1.zip then execute: 
+
+python hmm.py task1/val/ output.txt
+
+to run on the validation set or 
+
+python hmm.py task1/test/ output.txt
+
+to run on the test set.
+
+-------------------------------------------------------------------------
 References:
 
 Rodrigues, Filipe, Francisco Pereira, and Bernardete Ribeiro. "Sequence labeling with multiple annotators." Machine Learning 95.2 (2014): 165-181.

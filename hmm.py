@@ -882,16 +882,16 @@ def split_rod(all_sen, cd, features, labels):
     return (sen_val, sen_test, cd_val, cd_test)
 
 
-def run_rod(smooth = 0.001, use_set = 'val'):
+def run_rod(smooth = 0.001, dirname = 'task1/val/'):
     """
     use_set: validation or test
     """
-    if use_set == 'val':
-        dirname = 'task1/val/'
-    elif use_set == 'test':
-        dirname = 'task1/test/'
-    else:
-        dirname = ''
+    #if use_set == 'val':
+    #    dirname = 'task1/val/'
+    #elif use_set == 'test':
+    #    dirname = 'task1/test/'
+    #else:
+    #    dirname = ''
 
     # read ground truth
     all_sen, features, labels, docs = util.read_rod(dirname = dirname +
@@ -1322,11 +1322,25 @@ def main2():
     eval_seq_train(util.get_all_lab(all_sen), h.res, labels)
 
 
-def main_em():
+def output_to_file(data, res, features, labels, output_file):
+    f = open(output_file, 'w')
+    inv_l = {v: k for k, v in labels.items()}
+    inv_f = {v: k for k, v in features.items()}
+    
+    for sen, lab in zip(data.sentences, res):
+        wl = util.get_word_list2(sen, inv_f)
+        ll = util.get_lab_name_list2(lab, inv_l)
+        for w, l in zip(wl, ll):
+            f.write(w + ' ' + l + '\n')
+        f.write('\n')
+    
+    f.close()
+
+def main_em(dir_name = 'task1/val/', output_file = 'output.txt', em_steps = 5):
     """
     run em, eval, print
     """
-    hs, hc, all_sen, features, labels = run_rod(use_set = 'val')
+    hs, hc, all_sen, features, labels = run_rod(dirname=dir_name)
     hc.init(init_type = 'dw', wm_rep='cv2')
     gold = util.get_all_lab(all_sen)
 
@@ -1334,7 +1348,18 @@ def main_em():
     hc.em(5)
     hc.mls()
     
+    output_to_file(hc.data, hc.res, features, labels, output_file)
+    
     print eval_seq_train(gold, hc.res, labels)
 
+
+import sys
 if __name__ == "__main__":
-    main_em()
+    input_dir = sys.argv[1]
+    output_file = sys.argv[2]
+    if len(sys.argv) > 3:
+        em_steps = sys.argv[3]
+    else:
+        em_steps = 5
+    
+    main_em(input_dir, output_file, em_steps)
