@@ -14,6 +14,14 @@ Data for the Biomedical IE task: https://github.com/yinfeiy/PICO-data
 
 -------------------------------------------------------------------------
 
+Requirements: Python 2
+
+Installing required packages using virtualenv (so it does not collide with system dependencies)
+
+$ virtualenv env-python2 --python=python2
+$ source env-python2/bin/activate
+(env-python2) $ pip install sklearn numpy nltk scipy python-crfsuite matplotlib
+
 Command to run HMM-Crowd: python hmm.py <input directory> <output file> <optional: number of EM iterations>
 
 To run the experiment on NER Task 1, extract the Rodrigues et al. data in task1.zip then execute: 
