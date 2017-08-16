@@ -22,17 +22,17 @@ $ virtualenv env-python2 --python=python2
 $ source env-python2/bin/activate
 (env-python2) $ pip install sklearn numpy nltk scipy python-crfsuite matplotlib
 
-Command to run HMM-Crowd: python hmm.py <input directory> <output file> <optional: number of EM iterations>
-
 To run the experiment on NER Task 1, extract the Rodrigues et al. data in task1.zip then execute: 
 
-python hmm.py task1/val/ output.txt
+python hmm.py -i task1/val/ -o output.txt
 
 to run on the validation set or 
 
-python hmm.py task1/test/ output.txt
+python hmm.py -i task1/test/ -o output.txt
 
 to run on the test set.
+
+Execute python hmm.py --help for more options.
 
 -------------------------------------------------------------------------
 References:

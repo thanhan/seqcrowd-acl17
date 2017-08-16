@@ -1336,30 +1336,54 @@ def output_to_file(data, res, features, labels, output_file):
     
     f.close()
 
-def main_em(dir_name = 'task1/val/', output_file = 'output.txt', em_steps = 5):
+def main_em(opts):
     """
     run em, eval, print
     """
-    hs, hc, all_sen, features, labels = run_rod(dirname=dir_name)
-    hc.init(init_type = 'dw', wm_rep='cv2')
+    hs, hc, all_sen, features, labels = run_rod(dirname=opts.inputdir)
+    hc.init(init_type = 'dw', wm_rep='cv2', dw_em=5, wm_smooth=float(opts.smooth))
     gold = util.get_all_lab(all_sen)
 
-    
-    hc.em(5)
+    hc.vb = [float(opts.variational_prior), float(opts.variational_prior)]
+    hc.em(int(opts.emsteps))
     hc.mls()
     
-    output_to_file(hc.data, hc.res, features, labels, output_file)
+    output_to_file(hc.data, hc.res, features, labels, opts.output)
     
     print eval_seq_train(gold, hc.res, labels)
 
 
 import sys
+import optparse
+
 if __name__ == "__main__":
-    input_dir = sys.argv[1]
-    output_file = sys.argv[2]
-    if len(sys.argv) > 3:
-        em_steps = sys.argv[3]
-    else:
-        em_steps = 5
+
+    optparser = optparse.OptionParser()
+    optparser.add_option(
+    "-i", "--inputdir", default="task1/val/",
+    help="input directory"
+    )
+
+    optparser.add_option(
+    "-o", "--output", default="output.txt",
+    help="output file"
+    )
     
-    main_em(input_dir, output_file, em_steps)
+    optparser.add_option(
+    "-e", "--emsteps", default="1",
+    help="number of EM steps"
+    )
+    
+    optparser.add_option(
+    "-s", "--smooth", default="0.001",
+    help="smooth parameters"
+    )
+    
+    optparser.add_option(
+    "-v", "--variational_prior", default="0.1",
+    help="prior for the variational estimator"
+    )
+
+    opts = optparser.parse_args()[0]
+    
+    main_em(opts)
